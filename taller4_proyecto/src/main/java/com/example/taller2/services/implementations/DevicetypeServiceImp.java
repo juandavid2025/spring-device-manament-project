@@ -1,0 +1,96 @@
+package com.example.taller2.services.implementations;
+
+import org.springframework.stereotype.Service;
+
+import com.example.taller2.DAO.Interfaces.DevicetypeDAO;
+import com.example.taller2.DAO.implementation.DevicetypeDAOImp;
+import com.example.taller2.model.Devicetype;
+import com.example.taller2.model.Institution;
+import com.example.taller2.services.interfaces.DevicetypeService;
+import com.example.taller2.services.interfaces.InstitutionService;
+
+@Service
+public class DevicetypeServiceImp implements DevicetypeService {
+
+	private DevicetypeDAO devTypeDAO;
+	private InstitutionService insService;
+
+	public DevicetypeServiceImp(DevicetypeDAOImp devTypeDAO, InstitutionServiceImp insService) {
+		this.devTypeDAO = devTypeDAO;
+		this.insService = insService;
+	}
+
+	@Override
+	public Devicetype saveDevicetype(Devicetype devicetype, Long institutionId) {
+
+		if (correctName(devicetype)) {
+
+			Institution institution = insService.findById(institutionId);
+
+			if (institution != null) {
+
+				institution.addDevicetype(devicetype);
+				devicetype.setInstitution(institution);
+				return devTypeDAO.save(devicetype);
+
+			} else {
+				throw new RuntimeException();
+			}
+		} else {
+			throw new RuntimeException();
+		}
+	}
+
+	@Override
+	public Devicetype updateDevicetype(Devicetype devicetype) {
+		if (correctName(devicetype)) {
+
+			Devicetype devType = devTypeDAO.findById(devicetype.getDevtypeId());
+
+			if (devType != null) {
+				return devTypeDAO.save(devicetype);
+			} else {
+				throw new RuntimeException();
+			}
+		} else {
+			throw new RuntimeException();
+		}
+	}
+
+	@Override
+	public void cleanUp() {
+		devTypeDAO.deleteAll();
+	}
+
+	@Override
+	public Devicetype findById(Long id) {
+		return devTypeDAO.findById(id);
+	}
+
+	public boolean correctName(Devicetype devicetype) {
+		if (devicetype.getDevtypeName().equals("")) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	@Override
+	public Iterable<Devicetype> findAll() {
+		return devTypeDAO.findAll();
+	}
+
+	@Override
+	public Devicetype saveDevicetype(Devicetype devicetype) {
+
+		if (correctName(devicetype)) {
+
+			return devTypeDAO.save(devicetype);
+
+		} else {
+			throw new RuntimeException();
+		}
+
+	}
+
+}

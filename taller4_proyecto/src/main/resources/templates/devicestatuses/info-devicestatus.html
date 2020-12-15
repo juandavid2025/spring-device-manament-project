@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Add User</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="../css/shards.min.css">
+</head>
+<body>
+	<div class="container my-5">
+		<h2 class="mb-5">Info Devicestatus</h2>
+		<div class="row">
+			<div class="col-md-6">
+				<form action="#" th:action="@{/devicestatuses/info/{id}(id=${devicestatus.devstatId})}" method="post" th:object="${devicestatus}">
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label for="devstatId" class="col-form-label">DevtypeId</label> <input
+								type="text" th:field="*{devstatId}" id="devstatId" placeholder="devstatId" 
+								class="form-control" disabled> <span
+								th:if="${#fields.hasErrors('devstatId')}" th:errors="*{devstatId}"
+								class="text-danger"></span>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="devstatName" class="col-form-label">DevstatusName</label> <input
+								type="text" th:field="*{devstatName}" id="devstatName" placeholder="devstatName" 
+								class="form-control" disabled> <span
+								th:if="${#fields.hasErrors('devstatName')}" th:errors="*{devstatName}"
+								class="text-danger"></span>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="institution" class="col-form-label">Institution</label> <input
+								type="text" th:field="*{institution}" id="institution" placeholder="institution" 
+								class="form-control" disabled> <span
+								th:if="${#fields.hasErrors('institution')}" th:errors="*{institution}"
+								class="text-danger"></span>
+								
+								<a th:href="@{/institutions/info/{id}(id=${devicestatus.institution.instId})}"
+									class="btn btn-primary"><i class="fas fa-info-circle"></i></a>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="permissionn" class="col-form-label">Permissionn</label> <input
+								type="text" th:field="*{permissionn}" id="permissionn" placeholder="permissionn" 
+								class="form-control" disabled> <span
+								th:if="${#fields.hasErrors('permissionn')}" th:errors="*{permissionn}"
+								class="text-danger"></span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 mt-3">
+							<a href="/devicestatus"><i class="fas fa-home ml-2"></i> Go back to devicestatus</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
