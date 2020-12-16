@@ -40,14 +40,12 @@ public class Device implements Serializable {
 
 	// bi-directional many-to-one association to Devicestatus
 	// @NotNull(groups = { DeviceGroup.class })
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "DEVSTAT_DEVSTAT_ID")
 	private Devicestatus devicestatus;
 
 	// bi-directional many-to-one association to Devicetype
 	// @NotNull(groups = { DeviceGroup.class })
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "DEVTYPE_DEVTYPE_ID")
 	private Devicetype devicetype;
