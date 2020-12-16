@@ -14,7 +14,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.example.taller2.Taller2Application;
 import com.example.taller2.DAO.Interfaces.InstitutionDAO;
+import com.example.taller2.DAO.Interfaces.NexuspollDAO;
 import com.example.taller2.model.Institution;
+import com.example.taller2.model.Nexuspoll;
 
 @SpringBootTest
 @ContextConfiguration(classes = Taller2Application.class)
@@ -23,6 +25,21 @@ class IntitutionDAOTestUnit {
 
 	@Autowired
 	private InstitutionDAO institutionDAO;
+
+	@Autowired
+	private NexuspollDAO nexuspollDAO;
+
+	@Test
+	@Transactional
+	void testSaveNexus() {
+		Nexuspoll nexus = new Nexuspoll();
+		nexus.setNexpollName("izi");
+		nexuspollDAO.save(nexus);
+
+		System.out.print("name= " + nexuspollDAO.findById(nexus.getNexpollId()).getNexpollName());
+		assertTrue(nexuspollDAO.findById(nexus.getNexpollId()).getNexpollName().equals("izi"));
+		// assertTrue(nexuspollDAO.findAll().size() != 0);
+	}
 
 	@Test
 	@Transactional

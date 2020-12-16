@@ -27,6 +27,7 @@ public class NexuspollControllerImp {
 
 	@GetMapping("/nexuspolls/add")
 	public String addNexuspoll(Model model) {
+		// System.out.print("quiero add");
 		model.addAttribute("nexuspoll", new Nexuspoll());
 		return "nexuspolls/add-nexuspoll";
 	}
@@ -61,6 +62,19 @@ public class NexuspollControllerImp {
 		model.addAttribute("nexuspoll", nexuspoll);
 
 		return "/nexuspolls/update-nexuspoll";
+	}
+
+	@GetMapping("/nexuspolls/delete/{id}")
+	public String deleteNexuspoll(@PathVariable("id") long id, Model model) {
+		final Nexuspoll nexuspoll = nexusDelegate.findById(id);
+
+		if (nexuspoll == null) {
+			throw new RuntimeException();
+		}
+
+		nexusDelegate.delete(id);
+
+		return "redirect:/nexuspolls";
 	}
 
 	// ----post----

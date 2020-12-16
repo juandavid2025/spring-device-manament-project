@@ -2,6 +2,8 @@ package com.example.taller2.services.implementations;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,34 +21,40 @@ public class NexuspollServiceImp implements NexuspollService {
 		this.nexusDAO = nexusDAO;
 	}
 
+	@Transactional
 	@Override
 	public List<Nexuspoll> findAll() {
 		return nexusDAO.findAll();
 	}
 
+	@Transactional
 	@Override
 	public Nexuspoll findById(long id) {
 		return nexusDAO.findById(id);
 	}
 
+	@Transactional
 	@Override
 	public Nexuspoll saveNexuspoll(Nexuspoll nexuspoll) {
+		System.out.print("guardo nexus service");
 		return nexusDAO.save(nexuspoll);
 	}
 
+	@Transactional
 	@Override
 	public Nexuspoll updateNexuspoll(Nexuspoll nexuspoll) {
 
 		Nexuspoll nexus = findById(nexuspoll.getNexpollId());
 
 		if (nexus != null) {
-			nexusDAO.update(nexus);
-			return nexus;
+			nexusDAO.update(nexuspoll);
+			return nexuspoll;
 		} else {
 			throw new RuntimeException();
 		}
 	}
 
+	@Transactional
 	@Override
 	public Nexuspoll deleteNexuspoll(long id) {
 		Nexuspoll nexus = findById(id);

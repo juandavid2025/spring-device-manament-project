@@ -31,7 +31,9 @@ public class NexuspollDAOImp implements NexuspollDAO {
 	public Nexuspoll save(Nexuspoll nexuspoll) {
 		try {
 			entityManager.persist(nexuspoll);
+			System.out.print("\n guardo en DAO =" + findById(nexuspoll.getNexpollId()).getNexpollName());
 		} catch (Exception e) {
+			System.out.print("" + e.getMessage());
 			return null;
 		}
 		return null;
@@ -40,8 +42,10 @@ public class NexuspollDAOImp implements NexuspollDAO {
 	@Override
 	public Nexuspoll update(Nexuspoll nexuspoll) {
 		try {
+			System.out.print("voy a actualizar DAO= " + nexuspoll.getNexpollName());
 			entityManager.merge(nexuspoll);
 		} catch (Exception e) {
+			System.out.print("" + e.getMessage());
 			return null;
 		}
 		return null;
