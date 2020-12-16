@@ -1,5 +1,8 @@
 package com.example.taller2.services.implementations;
 
+import java.util.List;
+
+
 import org.springframework.stereotype.Service;
 
 import com.example.taller2.DAO.Interfaces.DevicestatusDAO;
@@ -10,6 +13,7 @@ import com.example.taller2.model.Permissionn;
 import com.example.taller2.services.interfaces.DevicestatusService;
 import com.example.taller2.services.interfaces.InstitutionService;
 import com.example.taller2.services.interfaces.PermissionnService;
+import javax.transaction.Transactional;
 
 @Service
 public class DevicestatusServiceImp implements DevicestatusService {
@@ -18,13 +22,13 @@ public class DevicestatusServiceImp implements DevicestatusService {
 	private InstitutionService insService;
 	private PermissionnService permiService;
 
-	public DevicestatusServiceImp(DevicestatusDAOImp devStatusDAO, InstitutionService insService,
+	public DevicestatusServiceImp(DevicestatusDAO devStatusDAO, InstitutionService insService,
 			PermissionnService permiService) {
 		this.devStatusDAO = devStatusDAO;
 		this.insService = insService;
 		this.permiService = permiService;
 	}
-
+	
 	@Override
 	public Devicestatus saveDevicestatus(Devicestatus devicestatus, Long institutionId, Long permissionnId) {
 
@@ -49,7 +53,7 @@ public class DevicestatusServiceImp implements DevicestatusService {
 		}
 
 	}
-
+	@Transactional
 	@Override
 	public Devicestatus updateDevicestatus(Devicestatus devicestatus) {
 
@@ -66,12 +70,12 @@ public class DevicestatusServiceImp implements DevicestatusService {
 		}
 
 	}
-
+	@Transactional
 	@Override
 	public void cleanUp() {
 		devStatusDAO.deleteAll();
 	}
-
+	@Transactional
 	@Override
 	public Devicestatus findById(Long id) {
 		return devStatusDAO.findById(id);
@@ -84,12 +88,12 @@ public class DevicestatusServiceImp implements DevicestatusService {
 			return true;
 		}
 	}
-
+	@Transactional
 	@Override
-	public Iterable<Devicestatus> findAll() {
+	public List<Devicestatus> findAll() {
 		return devStatusDAO.findAll();
 	}
-
+	@Transactional
 	@Override
 	public Devicestatus saveDevicestatus(Devicestatus devicestatus) {
 		if (verify(devicestatus)) {
@@ -98,12 +102,12 @@ public class DevicestatusServiceImp implements DevicestatusService {
 			throw new RuntimeException();
 		}
 	}
-
+	@Transactional
 	@Override
 	public Devicestatus searchByInstName(String instName) {
 		return devStatusDAO.searchByInstName(instName);
 	}
-
+	@Transactional
 	@Override
 	public Devicestatus searchByPermiId(Long id) {
 		return devStatusDAO.searchByPermiId(id);

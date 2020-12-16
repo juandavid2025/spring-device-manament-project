@@ -15,7 +15,7 @@ public interface DeviceService {
 
 	public Device findById(Long id);
 
-	public Iterable<Device> findAll();
+	public List<Device> findAll();
 
 	public Device saveDevice(Device device);
 

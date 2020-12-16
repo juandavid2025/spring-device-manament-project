@@ -5,11 +5,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.example.taller2.model.Device;
+import com.example.taller2.model.Devicestatus;
+import com.example.taller2.model.Devicetype;
 import com.example.taller2.model.Institution;
 import com.example.taller2.model.Permissionn;
 import com.example.taller2.model.Userr;
 import com.example.taller2.repository.PermissionnRepository;
 import com.example.taller2.repository.UserrRepository;
+import com.example.taller2.services.interfaces.DeviceService;
+import com.example.taller2.services.interfaces.DevicestatusService;
+import com.example.taller2.services.interfaces.DevicetypeService;
 import com.example.taller2.services.interfaces.InstitutionService;
 
 
@@ -22,7 +28,8 @@ public class Taller2Application {
 	}
 
 	@Bean
-	public CommandLineRunner dummy(UserrRepository userrRepo, PermissionnRepository permRepo, InstitutionService insService ) {
+	public CommandLineRunner dummy(UserrRepository userrRepo, PermissionnRepository permRepo, InstitutionService insService
+			,DevicetypeService typeService, DevicestatusService statusService, DeviceService deviceService) {
 
 		return (args) -> {
 
@@ -78,6 +85,25 @@ public class Taller2Application {
 			inti.setInstAcadphysicalspacesurl("https://");
 			inti.setInstAcadprogrammedcoursesurl("https://");
 			insService.saveInstitution(inti);
+			
+			Devicestatus status = new Devicestatus();
+			status.setDevstatName("new Status");
+			status.setInstitution(inti);
+			status.setPermissionn(permi1);
+			statusService.saveDevicestatus(status);
+			
+			Devicetype type = new Devicetype();
+			type.setDevtypeName("new type");
+			type.setInstitution(inti);
+			typeService.saveDevicetype(type);
+			Device device = new Device();
+			device.setDevMac("mac");
+			device.setDevicestatus(status);
+			device.setDevicetype(type);
+			deviceService.saveDevice(device);
+			System.out.println("Device status tamaño: "+ statusService.findAll().size());
+			System.out.println("Device type tamaño: "+ typeService.findAll().size());
+			System.out.println("Device status tamaño: "+ deviceService.findAll().size());
 		};
 	}
 }

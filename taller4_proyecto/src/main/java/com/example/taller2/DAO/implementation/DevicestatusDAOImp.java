@@ -36,6 +36,7 @@ public class DevicestatusDAOImp implements DevicestatusDAO {
 		try {
 			entityManager.persist(devStat);
 		} catch (Exception e) {
+			System.out.println("excep:  "+e.getMessage());
 			return null;
 		}
 		return devStat;

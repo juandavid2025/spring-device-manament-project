@@ -10,7 +10,6 @@ import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,7 +24,6 @@ import com.example.taller2.model.Posession;
 @SpringBootTest
 @ContextConfiguration(classes = Taller2Application.class)
 @ExtendWith(SpringExtension.class)
-@RunWith(MockitoJUnitRunner.class)
 class DeviceDAOTestUnit {
 
 	@Autowired

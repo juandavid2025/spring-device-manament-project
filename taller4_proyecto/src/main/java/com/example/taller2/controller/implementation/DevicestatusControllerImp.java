@@ -28,8 +28,8 @@ public class DevicestatusControllerImp {
 	private PermissionnService permService;
 
 	@Autowired
-	public DevicestatusControllerImp(DevicestatusServiceImp devStatusService, InstitutionServiceImp instService,
-			PermissionnServiceImp permService) {
+	public DevicestatusControllerImp(DevicestatusService devStatusService, InstitutionService instService,
+			PermissionnService permService) {
 		this.devStatusService = devStatusService;
 		this.instService = instService;
 		this.permService = permService;
