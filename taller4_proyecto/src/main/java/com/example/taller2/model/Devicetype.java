@@ -17,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.example.taller2.grouping.interfaces.DevicetypeGroup;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The persistent class for the DEVICETYPE database table.
@@ -39,6 +40,7 @@ public class Devicetype implements Serializable {
 	private String devtypeName;
 
 	// bi-directional many-to-one association to Device
+	@JsonIgnore
 	@OneToMany(mappedBy = "devicetype")
 	private List<Device> devices;
 

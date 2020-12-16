@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.taller2.DAO.Interfaces.DevicestatusDAO;
-import com.example.taller2.DAO.implementation.DevicestatusDAOImp;
 import com.example.taller2.model.Devicestatus;
 import com.example.taller2.model.Institution;
 import com.example.taller2.model.Permissionn;

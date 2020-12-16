@@ -16,6 +16,7 @@ import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
 import com.example.taller2.grouping.interfaces.DevicestatusGroup;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The persistent class for the DEVICESTATUS database table.
@@ -37,6 +38,7 @@ public class Devicestatus implements Serializable {
 	private String devstatName;
 
 	// bi-directional many-to-one association to Device
+	@JsonIgnore
 	@OneToMany(mappedBy = "devicestatus")
 	private List<Device> devices;
 
