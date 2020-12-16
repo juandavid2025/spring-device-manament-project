@@ -29,7 +29,6 @@ public class NexusquestionDAOImp implements NexusquestionDAO {
 		try {
 			entityManager.persist(dev);
 		} catch (Exception e) {
-			System.out.print("\n \n error prro");
 			return null;
 		}
 		return dev;

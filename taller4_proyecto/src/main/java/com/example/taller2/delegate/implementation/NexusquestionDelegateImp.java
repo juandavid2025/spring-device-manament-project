@@ -46,7 +46,7 @@ public class NexusquestionDelegateImp implements NexusquestionDelegate {
 
 	@Override
 	public void delete(Long id) {
-		restTemplate.delete(PATH, Nexusquestion.class);
+		restTemplate.delete(PATH+id);
 	}
 
 }

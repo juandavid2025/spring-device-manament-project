@@ -48,8 +48,21 @@ public class Nexusquestion implements Serializable {
 	//bi-directional many-to-one association to UstPersonNexus
 	@OneToMany(mappedBy="nexusquestion")
 	private List<UstPersonNexus> ustPersonNexuses;
+	
+	@Column(name="NEXPOLL_TEMPORAL")
+	private long temporal;
+
 
 	public Nexusquestion() {
+	}
+	
+	
+	public long getTemporal() {
+		return temporal;
+	}
+	
+	public void setTemporal(long temporal) {
+		this.temporal=temporal;
 	}
 
 	public long getNexquesId() {

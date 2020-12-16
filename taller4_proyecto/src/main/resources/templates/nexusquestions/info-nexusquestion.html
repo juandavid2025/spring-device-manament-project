@@ -38,7 +38,7 @@
 						</div>
 						<div class="form-group col-md-6">
 							<label for="nexuspoll" class="col-form-label">nexuspollId</label> <input
-								type="text" th:field="*{nexuspoll}" id="nexuspoll" placeholder="nexuspoll" 
+								type="text" th:field="*{nexuspoll.nexpollName}" id="nexuspoll" placeholder="nexuspoll" 
 								class="form-control" disabled> <span
 								th:if="${#fields.hasErrors('nexuspoll')}" th:errors="*{nexuspoll}"
 								class="text-danger"></span>

@@ -36,7 +36,6 @@ public class NexuspollDelegateImp implements NexuspollDelegate {
 
 	@Override
 	public Nexuspoll save(Nexuspoll nexuspoll) {
-		System.out.print("save en delegate");
 		return restTemplate.postForEntity(PATH, nexuspoll, Nexuspoll.class).getBody();
 	}
 

@@ -4,11 +4,18 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistrar;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.example.taller2.delegate.interfaces.NexuspollDelegate;
 import com.example.taller2.model.Device;
 import com.example.taller2.model.Devicestatus;
 import com.example.taller2.model.Devicetype;
 import com.example.taller2.model.Institution;
+import com.example.taller2.model.Nexuspoll;
+import com.example.taller2.model.Nexusquestion;
 import com.example.taller2.model.Permissionn;
 import com.example.taller2.model.Userr;
 import com.example.taller2.repository.PermissionnRepository;
@@ -17,6 +24,8 @@ import com.example.taller2.services.interfaces.DeviceService;
 import com.example.taller2.services.interfaces.DevicestatusService;
 import com.example.taller2.services.interfaces.DevicetypeService;
 import com.example.taller2.services.interfaces.InstitutionService;
+import com.example.taller2.services.interfaces.NexuspollService;
+import com.example.taller2.services.interfaces.NexusquestionService;
 
 @SpringBootApplication
 //@ComponentScan("com.example.taller2")
@@ -25,11 +34,18 @@ public class Taller2Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Taller2Application.class, args);
 	}
+	
+	@Configuration
+	static class myConfig implements WebMvcConfigurer{
+		public void addFormatters(FormatterRegistry registry, NexuspollDelegate poll) {
+			registry.addConverter(new NexpollIdtoNexuspollConverter(poll));
+		}
+	}
 
 	@Bean
 	public CommandLineRunner dummy(UserrRepository userrRepo, PermissionnRepository permRepo,
 			InstitutionService insService, DevicetypeService typeService, DevicestatusService statusService,
-			DeviceService deviceService) {
+			DeviceService deviceService, NexuspollService pollService, NexusquestionService questionService) {
 
 		return (args) -> {
 
@@ -94,7 +110,6 @@ public class Taller2Application {
 
 			Devicetype type = new Devicetype();
 			type.setDevtypeName("new type");
-			System.out.print("id insti= " + inti.getInstId() + "\n");
 			type.setInstitution(inti);
 			typeService.saveDevicetype(type);
 			Device device = new Device();
@@ -102,9 +117,17 @@ public class Taller2Application {
 			device.setDevicestatus(status);
 			device.setDevicetype(type);
 			deviceService.saveDevice(device);
-			// System.out.println("Device status tamaño: "+statusService.findAll().size());
-			// System.out.println("Device type tamaño: "+typeService.findAll().size());
-			// System.out.println("Device status tamaño: "+deviceService.findAll().size());
+			
+			Nexuspoll poll = new Nexuspoll();
+			poll.setNexpollName("new poll");
+			pollService.saveNexuspoll(poll);
+			
+			Nexusquestion question= new Nexusquestion();
+			question.setNexquesName("new question");
+			question.setNexuspoll(poll);
+			questionService.save(question);
+			
+			
 		};
 	}
 }

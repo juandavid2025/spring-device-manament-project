@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 //import org.junit.jupiter.api.Test;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -17,6 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.taller2.Taller2Application;
+import com.example.taller2.delegate.implementation.DevicestatusDelegateImp;
 import com.example.taller2.delegate.interfaces.DevicestatusDelegate;
 import com.example.taller2.model.Devicestatus;
 
@@ -29,9 +31,10 @@ public class DevicestatusDelegateTest {
 
 	@Mock
 	RestTemplate restTemplate;
-
+	
+	@InjectMocks
 	@Autowired
-	DevicestatusDelegate devstatusDele;
+	DevicestatusDelegateImp devstatusDele;
 
 	@Test
 	public void testSave() {
@@ -41,9 +44,10 @@ public class DevicestatusDelegateTest {
 
 		Mockito.when(restTemplate.getForObject(PATH + status.getDevstatId(), Devicestatus.class)).thenReturn(status);
 		Mockito.when(restTemplate.postForEntity(PATH, status, Devicestatus.class))
-				.thenReturn(new ResponseEntity<Devicestatus>(status, HttpStatus.OK));
-
-		assertEquals(devstatusDele.saveDevicestatus(status).getDevstatName(), "new Status");
+				.thenReturn((new ResponseEntity<Devicestatus>(status, HttpStatus.OK)));
+		devstatusDele.saveDevicestatus(status);
+		assertEquals(status, devstatusDele.findById(status.getDevstatId()));
+		
 	}
 
 	@Test
@@ -76,8 +80,7 @@ public class DevicestatusDelegateTest {
 		Devicestatus status = new Devicestatus();
 		status.setDevstatId(1);
 		status.setDevstatName("new Status");
-
-		// Mockito.when(restTemplate.put(PATH,inti,Institution.class)).thenReturn(inti);
+		Mockito.doNothing().when(restTemplate).put(PATH,status,Devicestatus.class);
 
 		assertTrue(devstatusDele.updateDevicestatus(status) != null);
 	}

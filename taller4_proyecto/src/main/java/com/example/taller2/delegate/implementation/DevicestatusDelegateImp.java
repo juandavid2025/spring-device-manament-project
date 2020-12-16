@@ -11,7 +11,7 @@ import com.example.taller2.model.Devicestatus;
 public class DevicestatusDelegateImp implements DevicestatusDelegate {
 
 	private final String PATH = "http://localhost:8082/devicestatusRest/";
-	private final RestTemplate restTemplate;
+	RestTemplate restTemplate;
 	
 	public DevicestatusDelegateImp() {
 		this.restTemplate = new RestTemplate();

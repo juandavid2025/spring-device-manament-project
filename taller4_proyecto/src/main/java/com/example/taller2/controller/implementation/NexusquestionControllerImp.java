@@ -87,7 +87,7 @@ public class NexusquestionControllerImp {
 
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
-				System.out.println("\nerror"+bindingResult.getErrorCount());
+				System.out.println("\nerror"+bindingResult.getAllErrors().toString());
 				return "nexusquestions/add-nexusquestion";
 			}
 			nexusDelegate.save(nexusquestion);

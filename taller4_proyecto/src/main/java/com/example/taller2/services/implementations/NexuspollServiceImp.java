@@ -36,7 +36,6 @@ public class NexuspollServiceImp implements NexuspollService {
 	@Transactional
 	@Override
 	public Nexuspoll saveNexuspoll(Nexuspoll nexuspoll) {
-		System.out.print("guardo nexus service");
 		return nexusDAO.save(nexuspoll);
 	}
 

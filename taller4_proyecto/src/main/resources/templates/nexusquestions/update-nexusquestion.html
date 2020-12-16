@@ -39,8 +39,8 @@
 						<div class="form-group col-md-6">
 							<label for="devicetype" class="col-form-label">nexuspoll</label> <select
 								class="form-control-range" th:field="*{nexuspoll}">
-								<option th:each="nexpoll : ${nexuspolls}" th:value="${nexpoll.devtypeId}"
-									class="form-control" th:text="${nexpoll.devtypeName}"
+								<option th:each="nexpoll : ${nexuspolls}" th:value="${nexpoll.nexpollId}"
+									class="form-control" th:text="${nexpoll.nexpollName}"
 									th:selected="${nexusquestion.nexuspoll=nexpoll}"></option>
 							</select>
 							<span

@@ -18,7 +18,7 @@ public class NexusquestionServiceImp implements NexusquestionService {
 	public NexusquestionServiceImp(NexusquestionDAO questionDao) {
 		this.questionDao = questionDao;
 	}
-
+	@Transactional
 	@Override
 	public Nexusquestion update(Nexusquestion question) {
 		Nexusquestion quest = questionDao.findById(question.getNexquesId());

@@ -49,7 +49,7 @@ public class Nexuspoll implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy="nexuspoll")
 	private List<Nexusquestion> nexusquestions;
-
+	
 	public Nexuspoll() {
 	}
 
