@@ -23,7 +23,7 @@ import com.example.taller2.model.Nexuspoll;
 @ContextConfiguration(classes = Taller2Application.class)
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
-public class NexuspollDelegateTest {
+public class NexusquestionDelegateTest {
 
 	private String PATH = "http://localhost:8082/nexuspollsRest/";
 

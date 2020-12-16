@@ -13,12 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.client.RestTemplate;
 
+import com.example.taller2.Taller2Application;
 import com.example.taller2.delegate.interfaces.DevicetypeDelegate;
 import com.example.taller2.model.Devicetype;
 
-//@ContextConfiguration(classes = Taller2Application.class)
+@ContextConfiguration(classes = Taller2Application.class)
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
 public class DevicetypeDelegateTest {
