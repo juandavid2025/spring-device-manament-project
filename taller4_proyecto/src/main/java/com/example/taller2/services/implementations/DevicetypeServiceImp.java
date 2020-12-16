@@ -1,5 +1,7 @@
 package com.example.taller2.services.implementations;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.taller2.DAO.Interfaces.DevicetypeDAO;
@@ -48,7 +50,7 @@ public class DevicetypeServiceImp implements DevicetypeService {
 			Devicetype devType = devTypeDAO.findById(devicetype.getDevtypeId());
 
 			if (devType != null) {
-				return devTypeDAO.save(devicetype);
+				return devTypeDAO.update(devicetype);
 			} else {
 				throw new RuntimeException();
 			}
@@ -76,7 +78,7 @@ public class DevicetypeServiceImp implements DevicetypeService {
 	}
 
 	@Override
-	public Iterable<Devicetype> findAll() {
+	public List<Devicetype> findAll() {
 		return devTypeDAO.findAll();
 	}
 

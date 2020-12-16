@@ -15,8 +15,8 @@ import com.example.taller2.model.Institution;
 @Repository
 @Scope("singleton")
 @Transactional
-public class InstitutionDAOImp implements InstitutionDAO{
-	
+public class InstitutionDAOImp implements InstitutionDAO {
+
 	@PersistenceContext
 	private EntityManager entityManager;
 
@@ -37,19 +37,17 @@ public class InstitutionDAOImp implements InstitutionDAO{
 		entityManager.remove(entity);
 		return entity;
 	}
-	
+
 	@Override
-	public Institution findById(long id){
-		return  entityManager.find(Institution.class, id);
+	public Institution findById(long id) {
+		return entityManager.find(Institution.class, id);
 	}
 
 	@Override
 	public List<Institution> findAll() {
 		String jpql = "Select inst from Institution inst";
 		return entityManager.createQuery(jpql).getResultList();
-		
+
 	}
-	
-	
-	
+
 }

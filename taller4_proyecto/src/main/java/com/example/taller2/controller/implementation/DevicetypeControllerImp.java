@@ -11,55 +11,55 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.taller2.delegate.implementation.DevicetypeDelegateImp;
+import com.example.taller2.delegate.implementation.InstitutionDelegateImp;
+import com.example.taller2.delegate.interfaces.DevicetypeDelegate;
+import com.example.taller2.delegate.interfaces.InstitutionDelegate;
 import com.example.taller2.grouping.interfaces.DevicetypeGroup;
 import com.example.taller2.model.Devicetype;
-import com.example.taller2.services.implementations.DevicetypeServiceImp;
-import com.example.taller2.services.implementations.InstitutionServiceImp;
-import com.example.taller2.services.interfaces.DevicetypeService;
-import com.example.taller2.services.interfaces.InstitutionService;
 
 @Controller
 public class DevicetypeControllerImp {
 
-	private DevicetypeService devtypeService;
-	private InstitutionService instService;
+	private DevicetypeDelegate devtypeDelegate;
+	private InstitutionDelegate instDelegate;
 
 	@Autowired
-	public DevicetypeControllerImp(DevicetypeServiceImp devtypeService, InstitutionServiceImp instService) {
-		this.devtypeService = devtypeService;
-		this.instService = instService;
+	public DevicetypeControllerImp(DevicetypeDelegateImp devtypeDelegate, InstitutionDelegateImp instDelegate) {
+		this.devtypeDelegate = devtypeDelegate;
+		this.instDelegate = instDelegate;
 	}
 
 	@GetMapping("/devicetypes")
 	public String indexDevicetypes(Model model) {
-		model.addAttribute("devicestatuses", devtypeService.findAll());
+		model.addAttribute("devicestatuses", devtypeDelegate.findAll());
 		return "devicetypes/index";
 	}
 
 	@GetMapping("devicetypes/add")
 	public String addDevicetype(Model model) {
 		model.addAttribute("devicetype", new Devicetype());
-		model.addAttribute("institutions", instService.findAll());
+		model.addAttribute("institutions", instDelegate.findAll());
 		return "devicetypes/add-devicetype";
 	}
 
 	@GetMapping("/devicetypes/edit/{id}")
 	public String showUpdate(@PathVariable("id") long id, Model model) {
-		final Devicetype devtype = devtypeService.findById(id);
+		final Devicetype devtype = devtypeDelegate.findById(id);
 
 		if (devtype == null) {
 			throw new RuntimeException();
 		}
 
 		model.addAttribute("devicetype", devtype);
-		model.addAttribute("institutions", instService.findAll());
+		model.addAttribute("institutions", instDelegate.findAll());
 
 		return "devicetypes/update-devicetype";
 	}
 
 	@GetMapping("/devicetypes/info/{id}")
 	public String showInfo(@PathVariable("id") long id, Model model) {
-		final Devicetype devicetype = devtypeService.findById(id);
+		final Devicetype devicetype = devtypeDelegate.findById(id);
 
 		if (devicetype == null) {
 			throw new RuntimeException();
@@ -82,7 +82,7 @@ public class DevicetypeControllerImp {
 			if (bindingResult.hasErrors()) {
 				return "devicetypes/add-devicetype";
 			}
-			devtypeService.saveDevicetype(devicetype);
+			devtypeDelegate.save(devicetype);
 		}
 		return "redirect:/devicetypes";
 	}
@@ -94,11 +94,11 @@ public class DevicetypeControllerImp {
 		if (action != null && !action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("devicetype", devicetype);
-				model.addAttribute("institutions", instService.findAll());
+				model.addAttribute("institutions", instDelegate.findAll());
 				return "devicetypes/update-devicetype";
 			}
 			devicetype.setDevtypeId(id);
-			devtypeService.saveDevicetype(devicetype);
+			devtypeDelegate.save(devicetype);
 		}
 		return "redirect:/devicetypes";
 	}

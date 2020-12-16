@@ -61,7 +61,7 @@ public class DeviceServiceImp implements DeviceService {
 			Device dev = devDAO.findById(device.getDevId());
 
 			if (dev != null) {
-				return devDAO.save(device);
+				return devDAO.update(device);
 			} else {
 				throw new RuntimeException();
 			}

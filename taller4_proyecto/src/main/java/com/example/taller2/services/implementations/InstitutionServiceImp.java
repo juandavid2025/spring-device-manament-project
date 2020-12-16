@@ -2,6 +2,8 @@ package com.example.taller2.services.implementations;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ public class InstitutionServiceImp implements InstitutionService {
 		this.institutionDAO = institutionDAO;
 	}
 
+	@Transactional
 	@Override
 	public Institution saveInstitution(Institution institution) {
 
@@ -29,6 +32,7 @@ public class InstitutionServiceImp implements InstitutionService {
 		throw new RuntimeException();
 	}
 
+	@Transactional
 	@Override
 	public Institution updateInstitution(Institution institution) {
 
@@ -39,7 +43,7 @@ public class InstitutionServiceImp implements InstitutionService {
 			if (inst == null) {
 				throw new RuntimeException();
 			} else {
-				return institutionDAO.save(institution);
+				return institutionDAO.update(institution);
 			}
 		}
 		throw new RuntimeException();
@@ -47,9 +51,10 @@ public class InstitutionServiceImp implements InstitutionService {
 
 	@Override
 	public void cleanUp() {
-		//institutionDAO.deleteAll();
+		// institutionDAO.deleteAll();
 	}
 
+	@Transactional
 	@Override
 	public Institution findById(Long id) {
 		return institutionDAO.findById(id);
@@ -77,6 +82,7 @@ public class InstitutionServiceImp implements InstitutionService {
 		}
 	}
 
+	@Transactional
 	@Override
 	public List<Institution> findAll() {
 		return institutionDAO.findAll();

@@ -57,7 +57,7 @@ public class DevicestatusServiceImp implements DevicestatusService {
 			Devicestatus devstatus = devStatusDAO.findById(devicestatus.getDevstatId());
 
 			if (devstatus != null) {
-				return devStatusDAO.save(devicestatus);
+				return devStatusDAO.update(devicestatus);
 			} else {
 				throw new RuntimeException();
 			}

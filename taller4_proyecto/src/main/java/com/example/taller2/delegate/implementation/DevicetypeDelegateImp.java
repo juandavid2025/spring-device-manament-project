@@ -2,22 +2,25 @@ package com.example.taller2.delegate.implementation;
 
 import java.util.Arrays;
 import java.util.List;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+
 import com.example.taller2.model.Devicetype;
 
 @Component
 public class DevicetypeDelegateImp implements com.example.taller2.delegate.interfaces.DevicetypeDelegate {
-	
+
 	private final String PATH = "http://localhost:8082/devicetypeRest/";
 	private final RestTemplate restTemplate;
-	
+
 	public DevicetypeDelegateImp() {
 		this.restTemplate = new RestTemplate();
 	}
 
 	@Override
 	public Devicetype save(Devicetype devicetype) {
+		System.out.print("llamado a guardar delegate");
 		return restTemplate.postForEntity(PATH, devicetype, Devicetype.class).getBody();
 	}
 
@@ -41,7 +44,5 @@ public class DevicetypeDelegateImp implements com.example.taller2.delegate.inter
 			return null;
 		}
 	}
-
-	
 
 }

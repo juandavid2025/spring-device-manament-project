@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //				.permitAll().and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 
 		// httpSecurity.authorizeRequests().antMatchers("/**").authenticated().and().formLogin();
-		httpSecurity.authorizeRequests().antMatchers("/**").permitAll();
+		httpSecurity.authorizeRequests().antMatchers("/**").permitAll().and().csrf().disable();
 
 		// intento login roles
 //		httpSecurity.authorizeRequests().antMatchers("/admin").hasRole("ADMIN").antMatchers("/opera").hasRole("OPERA")
