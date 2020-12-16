@@ -101,6 +101,7 @@ public class Institution implements Serializable {
 	private List<Accessdenialevent> accessdenialevents;
 
 	// bi-directional many-to-one association to Devicestatus
+	@JsonIgnore
 	@OneToMany(mappedBy = "institution")
 	private List<Devicestatus> devicestatuses;
 

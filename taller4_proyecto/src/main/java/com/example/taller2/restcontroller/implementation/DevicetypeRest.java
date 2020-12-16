@@ -27,6 +27,7 @@ public class DevicetypeRest {
 	@GetMapping("/")
 	public List<Devicetype> getAll() {
 		List<Devicetype> list = devtypeService.findAll();
+		System.out.print("ID====" + list.get(0).getInstitution().getInstId());
 		return list;
 	}
 
