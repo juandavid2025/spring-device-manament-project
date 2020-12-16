@@ -1,5 +1,7 @@
 package com.example.taller2.services.interfaces;
 
+import java.util.List;
+
 import com.example.taller2.model.Devicetype;
 
 public interface DevicetypeService {
@@ -12,7 +14,7 @@ public interface DevicetypeService {
 
 	public Devicetype findById(Long id);
 
-	public Iterable<Devicetype> findAll();
+	public List<Devicetype> findAll();
 
 	public Devicetype saveDevicetype(Devicetype devicetype);
 }

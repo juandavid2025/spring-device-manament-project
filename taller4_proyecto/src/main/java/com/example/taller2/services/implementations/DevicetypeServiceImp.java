@@ -1,9 +1,12 @@
 package com.example.taller2.services.implementations;
 
+import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import com.example.taller2.DAO.Interfaces.DevicetypeDAO;
-import com.example.taller2.DAO.implementation.DevicetypeDAOImp;
 import com.example.taller2.model.Devicetype;
 import com.example.taller2.model.Institution;
 import com.example.taller2.services.interfaces.DevicetypeService;
@@ -15,7 +18,7 @@ public class DevicetypeServiceImp implements DevicetypeService {
 	private DevicetypeDAO devTypeDAO;
 	private InstitutionService insService;
 
-	public DevicetypeServiceImp(DevicetypeDAOImp devTypeDAO, InstitutionServiceImp insService) {
+	public DevicetypeServiceImp(DevicetypeDAO devTypeDAO, InstitutionService insService) {
 		this.devTypeDAO = devTypeDAO;
 		this.insService = insService;
 	}
@@ -40,7 +43,7 @@ public class DevicetypeServiceImp implements DevicetypeService {
 			throw new RuntimeException();
 		}
 	}
-
+	@Transactional
 	@Override
 	public Devicetype updateDevicetype(Devicetype devicetype) {
 		if (correctName(devicetype)) {
@@ -56,12 +59,12 @@ public class DevicetypeServiceImp implements DevicetypeService {
 			throw new RuntimeException();
 		}
 	}
-
+	@Transactional
 	@Override
 	public void cleanUp() {
 		devTypeDAO.deleteAll();
 	}
-
+	@Transactional
 	@Override
 	public Devicetype findById(Long id) {
 		return devTypeDAO.findById(id);
@@ -74,17 +77,16 @@ public class DevicetypeServiceImp implements DevicetypeService {
 			return true;
 		}
 	}
-
+	@Transactional
 	@Override
-	public Iterable<Devicetype> findAll() {
+	public List<Devicetype> findAll() {
 		return devTypeDAO.findAll();
 	}
-
+	@Transactional
 	@Override
 	public Devicetype saveDevicetype(Devicetype devicetype) {
 
 		if (correctName(devicetype)) {
-
 			return devTypeDAO.save(devicetype);
 
 		} else {

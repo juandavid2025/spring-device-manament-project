@@ -7,8 +7,6 @@ import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
@@ -23,7 +21,6 @@ import com.example.taller2.model.Permissionn;
 @SpringBootTest
 @ContextConfiguration(classes = Taller2Application.class)
 @ExtendWith(SpringExtension.class)
-@RunWith(MockitoJUnitRunner.class)
 class DevicestatusDAOTestUnit {
 
 	@Autowired
@@ -33,8 +30,9 @@ class DevicestatusDAOTestUnit {
 	@Transactional
 	void testFindAll() {
 		Devicestatus devs = new Devicestatus();
+		devs.setDevstatName("new device");
 		devstatusDAO.save(devs);
-
+		System.out.println(devstatusDAO.findAll().get(0).getDevstatName());
 		assertTrue(devstatusDAO.findAll().size() != 0);
 	}
 

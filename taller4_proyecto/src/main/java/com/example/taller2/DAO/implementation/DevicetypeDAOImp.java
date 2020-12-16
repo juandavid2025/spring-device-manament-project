@@ -36,6 +36,7 @@ public class DevicetypeDAOImp implements DevicetypeDAO {
 		try {
 			entityManager.persist(devtype);
 		} catch (Exception e) {
+			System.out.println("excep type: " + e.getMessage());
 			return null;
 		}
 		return devtype;
