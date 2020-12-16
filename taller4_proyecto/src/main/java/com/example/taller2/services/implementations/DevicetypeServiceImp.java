@@ -2,6 +2,8 @@ package com.example.taller2.services.implementations;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import com.example.taller2.DAO.Interfaces.DevicetypeDAO;
