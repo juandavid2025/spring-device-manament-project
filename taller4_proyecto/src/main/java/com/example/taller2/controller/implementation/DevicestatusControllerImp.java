@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.taller2.delegate.implementation.DevicestatusDelegateImp;
+import com.example.taller2.delegate.interfaces.DevicestatusDelegate;
 import com.example.taller2.grouping.interfaces.DevicestatusGroup;
 import com.example.taller2.model.Devicestatus;
-import com.example.taller2.services.implementations.DevicestatusServiceImp;
-import com.example.taller2.services.implementations.InstitutionServiceImp;
-import com.example.taller2.services.implementations.PermissionnServiceImp;
 import com.example.taller2.services.interfaces.DevicestatusService;
 import com.example.taller2.services.interfaces.InstitutionService;
 import com.example.taller2.services.interfaces.PermissionnService;
@@ -23,21 +22,23 @@ import com.example.taller2.services.interfaces.PermissionnService;
 @Controller
 public class DevicestatusControllerImp {
 
-	private DevicestatusService devStatusService;
+	// private DevicestatusService devStatusService;
+	private DevicestatusDelegate devStatusDele;
 	private InstitutionService instService;
 	private PermissionnService permService;
 
 	@Autowired
 	public DevicestatusControllerImp(DevicestatusService devStatusService, InstitutionService instService,
-			PermissionnService permService) {
-		this.devStatusService = devStatusService;
+			PermissionnService permService, DevicestatusDelegateImp devStatusDele) {
+		// this.devStatusService = devStatusService;
 		this.instService = instService;
 		this.permService = permService;
+		this.devStatusDele = devStatusDele;
 	}
 
 	@GetMapping("/devicestatuses")
 	public String indexDevicestatus(Model model) {
-		model.addAttribute("devicestatuses", devStatusService.findAll());
+		model.addAttribute("devicestatuses", devStatusDele.findAll());
 		return "devicestatuses/index";
 	}
 
@@ -51,7 +52,7 @@ public class DevicestatusControllerImp {
 
 	@GetMapping("/devicestatuses/edit/{id}")
 	public String showUpdate(@PathVariable("id") long id, Model model) {
-		final Devicestatus devstatus = devStatusService.findById(id);
+		final Devicestatus devstatus = devStatusDele.findById(id);
 
 		if (devstatus == null) {
 			throw new RuntimeException();
@@ -66,7 +67,7 @@ public class DevicestatusControllerImp {
 
 	@GetMapping("/devicestatuses/info/{id}")
 	public String showInfo(@PathVariable("id") long id, Model model) {
-		final Devicestatus devicestatus = devStatusService.findById(id);
+		final Devicestatus devicestatus = devStatusDele.findById(id);
 
 		if (devicestatus == null) {
 			throw new RuntimeException();
@@ -88,7 +89,7 @@ public class DevicestatusControllerImp {
 			if (bindingResult.hasErrors()) {
 				return "devicestatuses/add-devicestatus";
 			}
-			devStatusService.saveDevicestatus(devicestatus);
+			devStatusDele.saveDevicestatus(devicestatus);
 		}
 		return "redirect:/devicestatuses";
 	}
@@ -105,7 +106,7 @@ public class DevicestatusControllerImp {
 				return "devicestatuses/update-devicestatus";
 			}
 			devicestatus.setDevstatId(id);
-			devStatusService.saveDevicestatus(devicestatus);
+			devStatusDele.updateDevicestatus(devicestatus);
 		}
 		return "redirect:/devicestatuses";
 	}

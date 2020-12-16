@@ -43,6 +43,7 @@ public class Devicetype implements Serializable {
 	private List<Device> devices;
 
 	// bi-directional many-to-one association to Institution
+	// @JsonIgnore
 	@NotNull(groups = { DevicetypeGroup.class })
 	@ManyToOne
 	@JoinColumn(name = "INST_INST_ID")

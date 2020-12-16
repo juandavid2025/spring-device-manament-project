@@ -26,8 +26,8 @@ public class DevicetypeRest {
 
 	@GetMapping("/")
 	public List<Devicetype> getAll() {
-		System.out.print("findAll rest");
-		return devtypeService.findAll();
+		List<Devicetype> list = devtypeService.findAll();
+		return list;
 	}
 
 	@GetMapping("/{id}")
@@ -37,7 +37,6 @@ public class DevicetypeRest {
 
 	@PostMapping
 	public Devicetype addDevicetype(@RequestBody Devicetype devicetype) {
-		System.out.print("voy a guardar rest");
 		return devtypeService.saveDevicetype(devicetype);
 	}
 

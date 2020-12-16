@@ -20,12 +20,12 @@ public class DevicetypeDelegateImp implements com.example.taller2.delegate.inter
 
 	@Override
 	public Devicetype save(Devicetype devicetype) {
-		System.out.print("llamado a guardar delegate");
 		return restTemplate.postForEntity(PATH, devicetype, Devicetype.class).getBody();
 	}
 
 	@Override
 	public Devicetype update(Devicetype devicetype) {
+		System.out.print("ID= " + devicetype.getDevtypeId());
 		restTemplate.put(PATH, devicetype, Devicetype.class);
 		return devicetype;
 	}
