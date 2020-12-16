@@ -1,80 +1,91 @@
 package com.example.taller2.model;
 
-
 import java.io.Serializable;
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The persistent class for the PERMISSIONN database table.
- * 
+ *
  */
 @Entity
-@NamedQuery(name="Permissionn.findAll", query="SELECT p FROM Permissionn p")
+@NamedQuery(name = "Permissionn.findAll", query = "SELECT p FROM Permissionn p")
 public class Permissionn implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="PERMISSIONN_PERMID_GENERATOR", sequenceName="PERMISSIONN_SEQ")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PERMISSIONN_PERMID_GENERATOR")
-	@Column(name="PERM_ID")
+	@SequenceGenerator(name = "PERMISSIONN_PERMID_GENERATOR", sequenceName = "PERMISSIONN_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERMISSIONN_PERMID_GENERATOR")
+	@Column(name = "PERM_ID")
 	private long permId;
 
-	@Column(name="PERM_DISPLAYNAME")
+	@Column(name = "PERM_DISPLAYNAME")
 	private String permDisplayname;
 
-	@Column(name="PERM_ICONNAME")
+	@Column(name = "PERM_ICONNAME")
 	private String permIconname;
 
-	@Column(name="PERM_INDEX")
+	@Column(name = "PERM_INDEX")
 	private BigDecimal permIndex;
 
-	@Column(name="PERM_ISACTIVE")
+	@Column(name = "PERM_ISACTIVE")
 	private String permIsactive;
 
-	@Column(name="PERM_MOBDISPLAY")
+	@Column(name = "PERM_MOBDISPLAY")
 	private String permMobdisplay;
 
-	@Column(name="PERM_NAME")
+	@Column(name = "PERM_NAME")
 	private String permName;
 
-	@Column(name="PERM_TARGETDISPLAY")
+	@Column(name = "PERM_TARGETDISPLAY")
 	private String permTargetdisplay;
 
-	@Column(name="PERM_TECHNICALDESCRIPTION")
+	@Column(name = "PERM_TECHNICALDESCRIPTION")
 	private String permTechnicaldescription;
 
-	@Column(name="PERM_USERDESCRIPTION")
+	@Column(name = "PERM_USERDESCRIPTION")
 	private String permUserdescription;
 
-	@Column(name="PERM_WEBPATH")
+	@Column(name = "PERM_WEBPATH")
 	private String permWebpath;
 
-	//bi-directional many-to-one association to Devicestatus
-	@OneToMany(mappedBy="permissionn")
+	// bi-directional many-to-one association to Devicestatus
+	@JsonIgnore
+	@OneToMany(mappedBy = "permissionn")
 	private List<Devicestatus> devicestatuses;
 
-	//bi-directional many-to-one association to Documentstate
-	@OneToMany(mappedBy="permissionn")
+	// bi-directional many-to-one association to Documentstate
+	@OneToMany(mappedBy = "permissionn")
 	private List<Documentstate> documentstates;
 
-	//bi-directional many-to-one association to Epidemstatustransition
-	@OneToMany(mappedBy="permissionn")
+	// bi-directional many-to-one association to Epidemstatustransition
+	@OneToMany(mappedBy = "permissionn")
 	private List<Epidemstatustransition> epidemstatustransitions;
 
-	//bi-directional many-to-one association to Permissiontype
+	// bi-directional many-to-one association to Permissiontype
 	@ManyToOne
-	@JoinColumn(name="PERMTYPE_PERMTYPE_ID")
+	@JoinColumn(name = "PERMTYPE_PERMTYPE_ID")
 	private Permissiontype permissiontype;
 
-	//bi-directional many-to-one association to PermFolltype
-	@OneToMany(mappedBy="permissionn")
+	// bi-directional many-to-one association to PermFolltype
+	@OneToMany(mappedBy = "permissionn")
 	private List<PermFolltype> permFolltypes;
 
-	//bi-directional many-to-one association to RolePermission
-	@OneToMany(mappedBy="permissionn")
+	// bi-directional many-to-one association to RolePermission
+	@OneToMany(mappedBy = "permissionn")
 	private List<RolePermission> rolePermissions;
 
 	public Permissionn() {

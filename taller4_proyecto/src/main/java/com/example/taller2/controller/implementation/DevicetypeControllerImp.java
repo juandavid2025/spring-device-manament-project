@@ -88,9 +88,8 @@ public class DevicetypeControllerImp {
 	}
 
 	@PostMapping("/devicetypes/edit/{id}")
-	public String updateInstitution(@Validated(DevicetypeGroup.class) @ModelAttribute Devicetype devicetype,
-			BindingResult bindingResult, @PathVariable("id") long id,
-			@RequestParam(value = "action", required = true) String action, Model model) {
+	public String updateInstitution(@Validated @ModelAttribute Devicetype devicetype, BindingResult bindingResult,
+			@PathVariable("id") long id, @RequestParam(value = "action", required = true) String action, Model model) {
 		if (action != null && !action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
 				model.addAttribute("devicetype", devicetype);
@@ -98,7 +97,7 @@ public class DevicetypeControllerImp {
 				return "devicetypes/update-devicetype";
 			}
 			devicetype.setDevtypeId(id);
-			devtypeDelegate.save(devicetype);
+			devtypeDelegate.update(devicetype);
 		}
 		return "redirect:/devicetypes";
 	}

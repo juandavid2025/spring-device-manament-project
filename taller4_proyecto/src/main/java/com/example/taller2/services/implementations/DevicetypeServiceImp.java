@@ -43,27 +43,31 @@ public class DevicetypeServiceImp implements DevicetypeService {
 			throw new RuntimeException();
 		}
 	}
+
 	@Transactional
 	@Override
 	public Devicetype updateDevicetype(Devicetype devicetype) {
 		if (correctName(devicetype)) {
-
+			System.out.print("todo correcto mi gente");
 			Devicetype devType = devTypeDAO.findById(devicetype.getDevtypeId());
 
 			if (devType != null) {
 				return devTypeDAO.update(devicetype);
 			} else {
+				System.out.print("todo mal id mi gente");
 				throw new RuntimeException();
 			}
 		} else {
 			throw new RuntimeException();
 		}
 	}
+
 	@Transactional
 	@Override
 	public void cleanUp() {
 		devTypeDAO.deleteAll();
 	}
+
 	@Transactional
 	@Override
 	public Devicetype findById(Long id) {
@@ -77,11 +81,13 @@ public class DevicetypeServiceImp implements DevicetypeService {
 			return true;
 		}
 	}
+
 	@Transactional
 	@Override
 	public List<Devicetype> findAll() {
 		return devTypeDAO.findAll();
 	}
+
 	@Transactional
 	@Override
 	public Devicetype saveDevicetype(Devicetype devicetype) {

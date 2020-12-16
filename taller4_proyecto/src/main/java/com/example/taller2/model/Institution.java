@@ -15,6 +15,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.example.taller2.grouping.interfaces.InstitutionGroup;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The persistent class for the INSTITUTION database table.
@@ -104,6 +105,7 @@ public class Institution implements Serializable {
 	private List<Devicestatus> devicestatuses;
 
 	// bi-directional many-to-one association to Devicetype
+	@JsonIgnore
 	@OneToMany(mappedBy = "institution")
 	private List<Devicetype> devicetypes;
 

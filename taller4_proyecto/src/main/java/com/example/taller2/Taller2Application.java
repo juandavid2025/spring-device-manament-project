@@ -18,7 +18,6 @@ import com.example.taller2.services.interfaces.DevicestatusService;
 import com.example.taller2.services.interfaces.DevicetypeService;
 import com.example.taller2.services.interfaces.InstitutionService;
 
-
 @SpringBootApplication
 //@ComponentScan("com.example.taller2")
 public class Taller2Application {
@@ -28,8 +27,9 @@ public class Taller2Application {
 	}
 
 	@Bean
-	public CommandLineRunner dummy(UserrRepository userrRepo, PermissionnRepository permRepo, InstitutionService insService
-			,DevicetypeService typeService, DevicestatusService statusService, DeviceService deviceService) {
+	public CommandLineRunner dummy(UserrRepository userrRepo, PermissionnRepository permRepo,
+			InstitutionService insService, DevicetypeService typeService, DevicestatusService statusService,
+			DeviceService deviceService) {
 
 		return (args) -> {
 
@@ -74,7 +74,7 @@ public class Taller2Application {
 			permRepo.save(permi1);
 			permRepo.save(permi2);
 			// Permissions------------------------------------------------------
-			
+
 			Institution inti = new Institution();
 			inti.setInstName("Icesi");
 			inti.setInstAcademicserverurl("https://");
@@ -85,15 +85,16 @@ public class Taller2Application {
 			inti.setInstAcadphysicalspacesurl("https://");
 			inti.setInstAcadprogrammedcoursesurl("https://");
 			insService.saveInstitution(inti);
-			
+
 			Devicestatus status = new Devicestatus();
 			status.setDevstatName("new Status");
 			status.setInstitution(inti);
 			status.setPermissionn(permi1);
 			statusService.saveDevicestatus(status);
-			
+
 			Devicetype type = new Devicetype();
 			type.setDevtypeName("new type");
+			System.out.print("id insti= " + inti.getInstId() + "\n");
 			type.setInstitution(inti);
 			typeService.saveDevicetype(type);
 			Device device = new Device();
@@ -101,9 +102,9 @@ public class Taller2Application {
 			device.setDevicestatus(status);
 			device.setDevicetype(type);
 			deviceService.saveDevice(device);
-			System.out.println("Device status tamaño: "+ statusService.findAll().size());
-			System.out.println("Device type tamaño: "+ typeService.findAll().size());
-			System.out.println("Device status tamaño: "+ deviceService.findAll().size());
+			// System.out.println("Device status tamaño: "+statusService.findAll().size());
+			// System.out.println("Device type tamaño: "+typeService.findAll().size());
+			// System.out.println("Device status tamaño: "+deviceService.findAll().size());
 		};
 	}
 }
