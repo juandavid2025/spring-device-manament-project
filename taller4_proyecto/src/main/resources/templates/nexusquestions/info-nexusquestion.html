@@ -17,49 +17,39 @@
 </head>
 <body>
 	<div class="container my-5">
-		<h2 class="mb-5">Info Device</h2>
+		<h2 class="mb-5">Info Nexusquestion</h2>
 		<div class="row">
 			<div class="col-md-6">
-				<form action="#" th:action="@{/devices/info/{id}(id=${device.devId})}" method="post" th:object="${device}">
+				<form action="#" th:action="@{/nexusquestions/info/{id}(id=${nexusquestion.nexquesId})}" method="post" th:object="${nexusquestion}">
 					<div class="row">
 						<div class="form-group col-md-6">
-							<label for="devId" class="col-form-label">DeviceId</label> <input
-								type="text" th:field="*{devId}" id="devId" placeholder="devId" 
+							<label for="nexquesId" class="col-form-label">NexusquestionId</label> <input
+								type="text" th:field="*{nexquesId}" id="nexquesId" placeholder="nexquesId" 
 								class="form-control" disabled> <span
-								th:if="${#fields.hasErrors('devId')}" th:errors="*{devId}"
+								th:if="${#fields.hasErrors('nexquesId')}" th:errors="*{nexquesId}"
 								class="text-danger"></span>
 						</div>
 						<div class="form-group col-md-6">
-							<label for="devMac" class="col-form-label">Mac</label> <input
-								type="text" th:field="*{devMac}" id="devMac" placeholder="devMac" 
+							<label for="nexquesName" class="col-form-label">Name</label> <input
+								type="text" th:field="*{nexquesName}" id="nexquesName" placeholder="nexquesName" 
 								class="form-control" disabled> <span
-								th:if="${#fields.hasErrors('devMac')}" th:errors="*{devMac}"
+								th:if="${#fields.hasErrors('nexquesName')}" th:errors="*{nexquesName}"
 								class="text-danger"></span>
 						</div>
 						<div class="form-group col-md-6">
-							<label for="devicetype" class="col-form-label">DevicetypeId</label> <input
-								type="text" th:field="*{devicetype}" id="devicetype" placeholder="devicetype" 
+							<label for="nexuspoll" class="col-form-label">nexuspollId</label> <input
+								type="text" th:field="*{nexuspoll}" id="nexuspoll" placeholder="nexuspoll" 
 								class="form-control" disabled> <span
-								th:if="${#fields.hasErrors('devicetype')}" th:errors="*{devicetype}"
+								th:if="${#fields.hasErrors('nexuspoll')}" th:errors="*{nexuspoll}"
 								class="text-danger"></span>
 								
-								<a th:href="@{/devicetypes/info/{id}(id=${device.devicetype.devtypeId})}"
-									class="btn btn-primary"><i class="fas fa-info-circle"></i></a>
-						</div>
-						<div class="form-group col-md-6">
-							<label for="devicestatus" class="col-form-label">DevicestatusId</label> <input
-								type="text" th:field="*{devicestatus}" id="devicestatus" placeholder="devicestatus" 
-								class="form-control" disabled> <span
-								th:if="${#fields.hasErrors('devicestatus')}" th:errors="*{devicestatus}"
-								class="text-danger"></span>
-								
-								<a th:href="@{/devicestatuses/info/{id}(id=${device.devicestatus.devstatId})}"
+								<a th:href="@{/nexuspolls/info/{id}(id=${nexusquestion.nexuspoll.nexpollId})}"
 									class="btn btn-primary"><i class="fas fa-info-circle"></i></a>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-4 mt-3">
-							<a href="/devices"><i class="fas fa-home ml-2"></i> Go back to devices</a>
+							<a href="/nexusquestions"><i class="fas fa-home ml-2"></i> Go back to nexusquestion</a>
 						</div>
 					</div>
 				</form>

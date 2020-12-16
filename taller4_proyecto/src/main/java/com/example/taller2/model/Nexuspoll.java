@@ -3,6 +3,9 @@ package com.example.taller2.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -43,6 +46,7 @@ public class Nexuspoll implements Serializable {
 	private Epidemevent epidemevent;
 
 	//bi-directional many-to-one association to Nexusquestion
+	@JsonIgnore
 	@OneToMany(mappedBy="nexuspoll")
 	private List<Nexusquestion> nexusquestions;
 

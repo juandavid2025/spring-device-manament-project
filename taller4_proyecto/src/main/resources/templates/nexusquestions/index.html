@@ -16,39 +16,38 @@
 <link rel="stylesheet" href="../css/shards.min.css">
 </head>
 <body>
-	<div th:switch="${devices}" class="container my-5">
+	<div th:switch="${nexusquestions}" class="container my-5">
 		<div class="row">
 			<div class="col-md-10">
-				<h2 th:case="null">No devices yet!</h2>
+				<h2 th:case="null">No nexus question yet!</h2>
 				<div th:case="*">
-					<h2 class="my-5">Devices</h2>
+					<h2 class="my-5">Nexus question</h2>
 					<table class="table table-striped table-responsive-md">
 						<thead>
 							<tr>
 								<th>Id</th>
-								<th>Mac</th>
-								<th>DevicetypeId</th>
-								<th>DevicestatusId</th>
+								<th>NexusQuestionName</th>
 								<th>Info</th>
 								<th>Edit</th>
+								<th>Delete</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="device : ${devices}">
-								<td class="text-info" th:text="${device.devId}"></td>
-								<td class="text-info" th:text="${device.devMac}"></td>
-								<td class="text-info" th:text="${device.devicetype.devtypeId}"></td>
-								<td class="text-info" th:text="${device.devicestatus.devstatId}"></td>
-								<td><a th:href="@{/devices/info/{id}(id=${device.devId})}"
+							<tr th:each="nexusquestion : ${nexusquestions}">
+								<td class="text-info" th:text="${nexusquestion.nexquesId}"></td>
+								<td class="text-info" th:text="${nexusquestion.nexquesName}"></td>
+								<td><a th:href="@{/nexusquestions/info/{id}(id=${nexusquestion.nexquesId})}"
 									class="btn btn-primary"><i class="fas fa-info-circle"></i></a></td>
-								<td><a th:href="@{/devices/edit/{id}(id=${device.devId})}"
+								<td><a th:href="@{/nexusquestions/edit/{id}(id=${nexusquestion.nexquesId})}"
 									class="btn btn-primary"><i class="fas fa-edit"></i></a></td>
+								<td><a th:href="@{nexusquestions/delete/{id}(id=${nexusquestion.nexquesId})}"
+									class="btn btn-primaty"><i class="fas fa-trash"></i></a></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<p class="my-5">
-					<a href="/devices/add" class="btn btn-primary"><i
+					<a href="/nexusquestions/add" class="btn btn-primary"><i
 						class="fas fa-plus-circle"></i></a>
 				</p>
 			</div>

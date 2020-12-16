@@ -17,45 +17,34 @@
 </head>
 <body>
 	<div class="container my-5">
-		<h2 class="mb-5">New Device</h2>
+		<h2 class="mb-5">New Nexusquestion</h2>
 		<div class="row">
 			<div class="col-md-6">
-				<form action="#" th:action="@{/devices/add}" th:object="${device}"
+				<form action="#" th:action="@{/nexusquestions/add}" th:object="${nexusquestion}"
 					method="post">
 					<div class="row">
 						<div class="form-group col-md-6">
-							<label for="devMac" class="col-form-label">Mac</label> <input
-								type="text" th:field="*{devMac}" class="form-control" id="devMac"
-								placeholder="devMac"> <span
-								th:if="${#fields.hasErrors('devMac')}" th:errors="*{devMac}"
+							<label for="nexquesName" class="col-form-label">Question Name</label> <input
+								type="text" th:field="*{nexquesName}" class="form-control" id="nexquesName"
+								placeholder="Name"> <span
+								th:if="${#fields.hasErrors('nexquesName')}" th:errors="*{nexquesName}"
 								class="text-danger"></span>
 						</div>
 						<div class="form-group col-md-6">
-							<label for="devicetype" class="col-form-label">devicetype</label> <select
-								class="form-control-range" th:field="*{devicetype}">
-								<option th:each="devtype : ${devicetypes}" th:value="${devtype.devtypeId}"
-									class="form-control" th:text="${devtype.devtypeName}"
-									th:selected="${device.devicetype=devtype}"></option>
+							<label for="nexuspoll" class="col-form-label">Nexus poll</label> <select
+								class="form-control-range" th:field="*{nexuspoll}">
+								<option th:each="poll : ${nexuspolls}" th:value="${poll.nexpollId}"
+									class="form-control" th:text="${poll.nexpollName}"
+									th:selected="${nexusquestion.nexuspoll=poll}"></option>
 							</select>
 							<span
-								th:if="${#fields.hasErrors('devicetype')}" th:errors="*{devicetype}"
-								class="text-danger"></span>
-						</div>
-						<div class="form-group col-md-6">
-							<label for="devicestatus" class="col-form-label">devicestatus</label> <select
-								class="form-control-range" th:field="*{devicestatus}">
-								<option th:each="devstatus : ${devicestatuses}" th:value="${devstatus.devstatId}"
-									class="form-control" th:text="${devstatus.devstatName}"
-									th:selected="${device.devicestatus=devstatus}"></option>
-							</select>
-							<span
-								th:if="${#fields.hasErrors('devicestatus')}" th:errors="*{devicestatus}"
+								th:if="${#fields.hasErrors('nexuspoll')}" th:errors="*{nexuspoll}"
 								class="text-danger"></span>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-4 mt-3">
-							<input type="submit" name="action" class="btn btn-primary" value="Add Device">
+							<input type="submit" name="action" class="btn btn-primary" value="Add nexusquestion">
 						</div>
 						<div class="col-md-3 mt-3">
 							<input type="reset" class="btn btn-secondary" value="Clear">
