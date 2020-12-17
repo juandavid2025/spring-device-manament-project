@@ -8,9 +8,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.taller2.delegate.interfaces.NexusquestionDelegate;
 import com.example.taller2.model.Nexusquestion;
+
 @Component
 public class NexusquestionDelegateImp implements NexusquestionDelegate {
-	
+
 	private final String PATH = "http://localhost:8082/nexusquestionRest/";
 	RestTemplate restTemplate;
 	
@@ -46,7 +47,7 @@ public class NexusquestionDelegateImp implements NexusquestionDelegate {
 
 	@Override
 	public void delete(Long id) {
-		restTemplate.delete(PATH+id);
+		restTemplate.delete(PATH + id);
 	}
 
 }

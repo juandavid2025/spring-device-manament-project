@@ -99,11 +99,4 @@ public class NexusquestionDelegateTest {
 
 		assertTrue(nexusDele.findById(np.getNexquesId())== null);
 	}
-	//@Test
-//	public void testinjection() {
-//
-//		
-//		assertTrue(nexusDele== null);
-//		
-//	}
 }

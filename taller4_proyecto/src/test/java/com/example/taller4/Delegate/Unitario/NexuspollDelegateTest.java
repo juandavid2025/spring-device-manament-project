@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 //import org.junit.jupiter.api.Test;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -17,7 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.taller2.Taller2Application;
-import com.example.taller2.delegate.interfaces.NexuspollDelegate;
+import com.example.taller2.delegate.implementation.NexuspollDelegateImp;
 import com.example.taller2.model.Nexuspoll;
 
 @ContextConfiguration(classes = Taller2Application.class)
@@ -30,8 +31,9 @@ public class NexuspollDelegateTest {
 	@Mock
 	RestTemplate restTemplate;
 
+	@InjectMocks
 	@Autowired
-	NexuspollDelegate nexuspollDele;
+	NexuspollDelegateImp nexuspollDele;
 
 	@Test
 	public void testSave() {
@@ -43,7 +45,8 @@ public class NexuspollDelegateTest {
 		Mockito.when(restTemplate.postForEntity(PATH, np, Nexuspoll.class))
 				.thenReturn(new ResponseEntity<Nexuspoll>(np, HttpStatus.OK));
 
-		assertEquals(nexuspollDele.save(np).getNexpollName(), "new nexuspoll");
+		nexuspollDele.save(np);
+		assertEquals(np, nexuspollDele.findById(np.getNexpollId()));
 	}
 
 	@Test
@@ -67,7 +70,7 @@ public class NexuspollDelegateTest {
 
 		Mockito.when(restTemplate.getForObject(PATH + np.getNexpollId(), Nexuspoll.class)).thenReturn(np);
 
-		assertEquals(nexuspollDele.findById(np.getNexpollId()).getNexpollId(), "new nexuspoll");
+		assertEquals(nexuspollDele.findById(np.getNexpollId()).getNexpollName(), "new nexuspoll");
 	}
 
 	@Test
@@ -77,8 +80,23 @@ public class NexuspollDelegateTest {
 		np.setNexpollId(1);
 		np.setNexpollName("new nexuspoll");
 
-		// Mockito.when(restTemplate.put(PATH,inti,Institution.class)).thenReturn(inti);
+		Mockito.doNothing().when(restTemplate).put(PATH, np, Nexuspoll.class);
 
 		assertTrue(nexuspollDele.update(np) != null);
+	}
+
+	@Test
+	public void testDelete() {
+		Nexuspoll np = new Nexuspoll();
+		np.setNexpollId(1);
+		np.setNexpollName("new nexuspoll");
+		Mockito.when(restTemplate.getForObject(PATH + np.getNexpollId(), Nexuspoll.class)).thenReturn(null);
+		Mockito.when(restTemplate.postForEntity(PATH, np, Nexuspoll.class))
+				.thenReturn(new ResponseEntity<Nexuspoll>(np, HttpStatus.OK));
+		nexuspollDele.save(np);
+
+		nexuspollDele.delete(np.getNexpollId());
+
+		assertTrue(nexuspollDele.findById(np.getNexpollId()) == null);
 	}
 }
