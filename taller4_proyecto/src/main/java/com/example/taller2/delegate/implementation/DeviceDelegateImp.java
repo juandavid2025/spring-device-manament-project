@@ -12,7 +12,7 @@ import com.example.taller2.model.Device;
 public class DeviceDelegateImp implements DeviceDelegate {
 	
 	private final String PATH = "http://localhost:8082/devicesRest/";
-	private final RestTemplate restTemplate;
+	RestTemplate restTemplate;
 	
 	public DeviceDelegateImp() {
 		this.restTemplate = new RestTemplate();

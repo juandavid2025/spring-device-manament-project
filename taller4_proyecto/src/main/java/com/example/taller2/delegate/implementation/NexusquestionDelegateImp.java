@@ -12,7 +12,7 @@ import com.example.taller2.model.Nexusquestion;
 public class NexusquestionDelegateImp implements NexusquestionDelegate {
 	
 	private final String PATH = "http://localhost:8082/nexusquestionRest/";
-	private final RestTemplate restTemplate;
+	RestTemplate restTemplate;
 	
 	public NexusquestionDelegateImp() {
 		this.restTemplate = new RestTemplate();

@@ -19,7 +19,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.taller2.Taller2Application;
 import com.example.taller2.delegate.implementation.DevicestatusDelegateImp;
-import com.example.taller2.delegate.interfaces.DevicestatusDelegate;
 import com.example.taller2.model.Devicestatus;
 
 @ContextConfiguration(classes = Taller2Application.class)
