@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 //import org.junit.jupiter.api.Test;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -17,7 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.taller2.Taller2Application;
-import com.example.taller2.delegate.interfaces.InstitutionDelegate;
+import com.example.taller2.delegate.implementation.InstitutionDelegateImp;
 import com.example.taller2.model.Institution;
 
 @ContextConfiguration(classes = Taller2Application.class)
@@ -30,8 +31,9 @@ public class InstitutionDelegateTest {
 	@Mock
 	RestTemplate restTemplate;
 
+	@InjectMocks
 	@Autowired
-	InstitutionDelegate instDele;
+	InstitutionDelegateImp instDele;
 
 	@Test
 	public void testSave() {
@@ -49,8 +51,8 @@ public class InstitutionDelegateTest {
 		Mockito.when(restTemplate.getForObject(PATH + inti.getInstId(), Institution.class)).thenReturn(inti);
 		Mockito.when(restTemplate.postForEntity(PATH, inti, Institution.class))
 				.thenReturn(new ResponseEntity<Institution>(inti, HttpStatus.OK));
-
-		assertEquals(instDele.save(inti).getInstName(), "Icesi");
+		instDele.save(inti);
+		assertEquals(inti, instDele.findById(inti.getInstId()));
 	}
 
 	@Test
@@ -105,7 +107,7 @@ public class InstitutionDelegateTest {
 		inti.setInstAcadphysicalspacesurl("https://");
 		inti.setInstAcadprogrammedcoursesurl("https://");
 
-		// Mockito.when(restTemplate.put(PATH,inti,Institution.class)).thenReturn(inti);
+		Mockito.doNothing().when(restTemplate).put(PATH, inti, Institution.class);
 
 		assertTrue(instDele.update(inti) != null);
 	}

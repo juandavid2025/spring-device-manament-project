@@ -13,7 +13,7 @@ import com.example.taller2.model.Institution;
 public class InstitutionDelegateImp implements InstitutionDelegate {
 
 	private final String PATH = "http://localhost:8082/institutionsRest/";
-	private final RestTemplate restTemplate;
+	RestTemplate restTemplate;
 
 	public InstitutionDelegateImp() {
 		this.restTemplate = new RestTemplate();

@@ -13,7 +13,7 @@ import com.example.taller2.model.Nexuspoll;
 public class NexuspollDelegateImp implements NexuspollDelegate {
 
 	private final String PATH = "http://localhost:8082/nexuspollsRest/";
-	private final RestTemplate restTemplate;
+	RestTemplate restTemplate;
 
 	public NexuspollDelegateImp() {
 		this.restTemplate = new RestTemplate();

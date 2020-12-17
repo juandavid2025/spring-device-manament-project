@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 //import org.junit.jupiter.api.Test;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -17,7 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.taller2.Taller2Application;
-import com.example.taller2.delegate.interfaces.DevicetypeDelegate;
+import com.example.taller2.delegate.implementation.DevicetypeDelegateImp;
 import com.example.taller2.model.Devicetype;
 
 @ContextConfiguration(classes = Taller2Application.class)
@@ -30,8 +31,9 @@ public class DevicetypeDelegateTest {
 	@Mock
 	RestTemplate restTemplate;
 
+	@InjectMocks
 	@Autowired
-	DevicetypeDelegate devtypeDele;
+	DevicetypeDelegateImp devtypeDele;
 
 	@Test
 	public void testSave() {
@@ -42,8 +44,8 @@ public class DevicetypeDelegateTest {
 		Mockito.when(restTemplate.getForObject(PATH + type.getDevtypeId(), Devicetype.class)).thenReturn(type);
 		Mockito.when(restTemplate.postForEntity(PATH, type, Devicetype.class))
 				.thenReturn(new ResponseEntity<Devicetype>(type, HttpStatus.OK));
-
-		assertEquals(devtypeDele.save(type).getDevtypeName(), "new type");
+		devtypeDele.save(type);
+		assertEquals(type, devtypeDele.findById(type.getDevtypeId()));
 	}
 
 	@Test
@@ -77,7 +79,7 @@ public class DevicetypeDelegateTest {
 		type.setDevtypeId(1);
 		type.setDevtypeName("new type");
 
-		// Mockito.when(restTemplate.put(PATH,inti,Institution.class)).thenReturn(inti);
+		Mockito.doNothing().when(restTemplate).put(PATH, type, Devicetype.class);
 
 		assertTrue(devtypeDele.update(type) != null);
 	}

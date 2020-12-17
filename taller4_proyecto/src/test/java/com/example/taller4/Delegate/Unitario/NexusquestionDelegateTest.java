@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 //import org.junit.jupiter.api.Test;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -17,8 +18,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.taller2.Taller2Application;
-import com.example.taller2.delegate.interfaces.NexuspollDelegate;
-import com.example.taller2.model.Nexuspoll;
+import com.example.taller2.delegate.implementation.NexusquestionDelegateImp;
+import com.example.taller2.model.Nexusquestion;
 
 @ContextConfiguration(classes = Taller2Application.class)
 @SpringBootTest
@@ -30,55 +31,73 @@ public class NexusquestionDelegateTest {
 	@Mock
 	RestTemplate restTemplate;
 
+	@InjectMocks
 	@Autowired
-	NexuspollDelegate nexuspollDele;
+	NexusquestionDelegateImp nexusquestionDele;
 
 	@Test
 	public void testSave() {
-		Nexuspoll np = new Nexuspoll();
-		np.setNexpollId(1);
-		np.setNexpollName("new nexuspoll");
+		Nexusquestion nq = new Nexusquestion();
+		nq.setNexquesId(1);
+		nq.setNexquesName("new nexusquestion");
 
-		Mockito.when(restTemplate.getForObject(PATH + np.getNexpollId(), Nexuspoll.class)).thenReturn(np);
-		Mockito.when(restTemplate.postForEntity(PATH, np, Nexuspoll.class))
-				.thenReturn(new ResponseEntity<Nexuspoll>(np, HttpStatus.OK));
+		Mockito.when(restTemplate.getForObject(PATH + nq.getNexquesId(), Nexusquestion.class)).thenReturn(nq);
+		Mockito.when(restTemplate.postForEntity(PATH, nq, Nexusquestion.class))
+				.thenReturn(new ResponseEntity<Nexusquestion>(nq, HttpStatus.OK));
 
-		assertEquals(nexuspollDele.save(np).getNexpollName(), "new nexuspoll");
+		nexusquestionDele.save(nq);
+		assertEquals(nq, nexusquestionDele.findById(nq.getNexquesId()));
 	}
 
 	@Test
 	public void testFindAll() {
-		Nexuspoll np = new Nexuspoll();
-		np.setNexpollId(1);
-		np.setNexpollName("new nexuspoll");
+		Nexusquestion nquest = new Nexusquestion();
+		nquest.setNexquesId(1);
+		nquest.setNexquesName("new nexusquestion");
 
-		Nexuspoll[] list = { np };
-		Mockito.when(restTemplate.getForObject(PATH, Nexuspoll[].class)).thenReturn(list);
+		Nexusquestion[] list = { nquest };
+		Mockito.when(restTemplate.getForObject(PATH, Nexusquestion[].class)).thenReturn(list);
 
-		assertTrue((nexuspollDele.findAll().size()) != 0);
+		assertTrue((nexusquestionDele.findAll().size()) != 0);
 	}
 
 	@Test
 	public void testFindById() {
 
-		Nexuspoll np = new Nexuspoll();
-		np.setNexpollId(1);
-		np.setNexpollName("new nexuspoll");
+		Nexusquestion nq = new Nexusquestion();
+		nq.setNexquesId(1);
+		nq.setNexquesName("new nexusquestion");
 
-		Mockito.when(restTemplate.getForObject(PATH + np.getNexpollId(), Nexuspoll.class)).thenReturn(np);
+		Mockito.when(restTemplate.getForObject(PATH + nq.getNexquesId(), Nexusquestion.class)).thenReturn(nq);
 
-		assertEquals(nexuspollDele.findById(np.getNexpollId()).getNexpollId(), "new nexuspoll");
+		assertEquals(nexusquestionDele.findById(nq.getNexquesId()).getNexquesName(), "new nexuspoll");
 	}
 
 	@Test
 	public void testUpdate() {
 
-		Nexuspoll np = new Nexuspoll();
-		np.setNexpollId(1);
-		np.setNexpollName("new nexuspoll");
+		Nexusquestion nq = new Nexusquestion();
+		nq.setNexquesId(1);
+		nq.setNexquesName("new nexusquestion");
 
-		// Mockito.when(restTemplate.put(PATH,inti,Institution.class)).thenReturn(inti);
+		Mockito.doNothing().when(restTemplate).put(PATH, nq, Nexusquestion.class);
 
-		assertTrue(nexuspollDele.update(np) != null);
+		assertTrue(nexusquestionDele.update(nq) != null);
+	}
+
+	@Test
+	public void testDelete() {
+		Nexusquestion nq = new Nexusquestion();
+		nq.setNexquesId(1);
+		nq.setNexquesName("new nexusquestion");
+		Mockito.when(restTemplate.getForObject(PATH + nq.getNexquesId(), Nexusquestion.class)).thenReturn(nq);
+		Mockito.when(restTemplate.postForEntity(PATH, nq, Nexusquestion.class))
+				.thenReturn(new ResponseEntity<Nexusquestion>(nq, HttpStatus.OK));
+
+		nexusquestionDele.save(nq);
+
+		nexusquestionDele.delete(nq.getNexquesId());
+
+		assertTrue(nexusquestionDele.findById(nq.getNexquesId()) == null);
 	}
 }
