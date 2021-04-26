@@ -23,8 +23,7 @@ public class DeviceServiceImp implements DeviceService {
 	private DevicetypeService devtypeService;
 	private DevicestatusService devstatusService;
 
-	public DeviceServiceImp(DeviceDAO devDAO, DevicetypeService devtypeService,
-			DevicestatusService devstatusService) {
+	public DeviceServiceImp(DeviceDAO devDAO, DevicetypeService devtypeService, DevicestatusService devstatusService) {
 		this.devDAO = devDAO;
 		this.devstatusService = devstatusService;
 		this.devtypeService = devtypeService;
@@ -54,6 +53,7 @@ public class DeviceServiceImp implements DeviceService {
 			throw new RuntimeException();
 		}
 	}
+
 	@Transactional
 	@Override
 	public Device updateDevice(Device device) {
@@ -71,11 +71,13 @@ public class DeviceServiceImp implements DeviceService {
 			throw new RuntimeException();
 		}
 	}
+
 	@Transactional
 	@Override
 	public void cleanUp() {
 		devDAO.deleteAll();
 	}
+
 	@Transactional
 	@Override
 	public Device findById(Long id) {
@@ -98,11 +100,13 @@ public class DeviceServiceImp implements DeviceService {
 
 		return unique;
 	}
+
 	@Transactional
 	@Override
 	public List<Device> findAll() {
 		return devDAO.findAll();
 	}
+
 	@Transactional
 	@Override
 	public Device saveDevice(Device device) {
@@ -112,21 +116,25 @@ public class DeviceServiceImp implements DeviceService {
 			throw new RuntimeException();
 		}
 	}
+
 	@Transactional
 	@Override
 	public Device searchByMac(String mac) {
 		return devDAO.searchByMac(mac);
 	}
+
 	@Transactional
 	@Override
 	public Device searchByDescription(String descrip) {
 		return devDAO.searchByDescription(descrip);
 	}
+
 	@Transactional
 	@Override
 	public List<Device> findDevicesBetweenDatesWithPosessions(Date startDate, Date endDate) {
 		return devDAO.findDevicesBetweenDatesWithPosessions(startDate, endDate);
 	}
+
 	@Transactional
 	@Override
 	public List<Device> findAvailableDevicesWithAtLeastTenPosessions(Date startDate, Date endDate) {

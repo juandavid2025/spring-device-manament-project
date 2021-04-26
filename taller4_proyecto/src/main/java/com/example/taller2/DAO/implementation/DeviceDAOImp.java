@@ -15,6 +15,7 @@ import com.example.taller2.model.Device;
 @Repository
 public class DeviceDAOImp implements DeviceDAO {
 
+//usando el entity manager
 	@Autowired
 	EntityManager entityManager;
 
