@@ -1,1 +1,4 @@
-# taller4-proyecto_computacion
+# spring-device-manament-project
+This project aims to unsderstant and implement a full interaction of all components in a Spring boot application, managing and using some entities of another application UCCare. This project controls the entities of Devices, Devicestatus, Devicetype, institution they belong and some form information (Nexuspoll and Nexusquestion).
+
+The complete interaction is: Model (entities), DAO repository (using the entityManager to create queries), Service (keep logic of interactions, using DAOs, like save, update, delete, find, etc.), restController (the one that will listen rest request from Delegates), Delegate (the one that send requests to restController), Controller (the one that receive the view information and usses delegates to get or send that information) and View (html files normally those are index, add, information and update for each entities we are using).
